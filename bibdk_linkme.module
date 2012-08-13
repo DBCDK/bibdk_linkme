@@ -1,0 +1,70 @@
+<?php 
+
+// Load Field module hooks.
+module_load_include('inc', 'bibdk_linkme', 'bibdk_linkme.permalink.field');
+
+
+/**
+ * Implements hook_menu();
+ */
+function bibdk_linkme_menu() {
+  $items['linkme.php'] = array(
+    'title' => 'linkme',
+    'description' => 'Linkme landing page',
+    'page callback' => 'bibdk_linkme_page',
+    'access arguments' => array('access content'),
+    'type' => MENU_LOCAL_TASK,
+  );
+   
+  return $items;
+    
+}
+
+/**
+ * Construct the linkme.php page
+ */
+function bibdk_linkme_page (){
+  
+  $query = drupal_get_query_parameters();
+
+  //Old format
+  if (isset($query['ccl'])){
+    extract(_parseCCLQuery($query['ccl']));
+    drupal_set_message(t("Get the Manifistation with lid : $lid and lok : $lok"), "status");
+  }
+  //new format
+  else if (isset($query['rec_id'])){
+    drupal_set_message(t("Get the Manifistation with ID : ").$query['rec_id'], "status");
+  }
+  //linkme query is missing
+  else{
+    drupal_set_message(t("Query does not have the right format"), "error");
+  }
+  return "";
+}
+
+/**
+ * 
+ * Extract lid and lok from CCL query
+ * 
+ * @param string $ccl
+ * @return array containing the variables of the CCL query
+ */
+function _parseCCLQuery($ccl){
+  $ccl = preg_replace("/ og /","&", $ccl);
+  parse_str($ccl, $arr);
+  return $arr;
+}
+
+/**
+ * 
+ * Generate linkme permalink
+ * 
+ * @param string $id
+ * @return string formatted as absolute URL 
+ */
+function bibdk_linkme_generate_permalink($id){
+  
+  return url("linkme.php", array("absolute" => TRUE, "query" => array("rec.id" => $id))); 
+}
+

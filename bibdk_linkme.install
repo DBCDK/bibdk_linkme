@@ -1,0 +1,25 @@
+<?php
+
+/**
+ * Implements hook_ding_entity_fields
+ **/
+function bibdk_linkme_ding_entity_fields() {
+  return array(
+    'bibdk_linkme_permalink' => array(
+      'field' => array(
+        'locked' => FALSE,
+        'storage' => array(
+          'type' => 'virtual_field',
+        ),
+      ),
+      'instance' => array(
+        'ding_entity_type' => 'bibdkManifestation',
+        'label' => t('Manifestation type'),
+        'bundle' => 'bibdkManifestation',
+        'entity_type' => 'bibdkManifestation'
+      ),
+    ),
+);
+
+  
+}

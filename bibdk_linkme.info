@@ -1,0 +1,11 @@
+
+name = Bibliotek.dk linkme permalink
+description = Adds a linkme permalink to ding entity
+core = 7.x
+package = "Bibliotek.dk"
+
+;dependencies[] = microcurl
+
+files[] = bibdk_linkme.permalink.inc
+
+; configure = admin/config/search/bibdk_custom_search
