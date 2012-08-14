@@ -14,7 +14,7 @@ function bibdk_linkme_ding_entity_fields() {
       ),
       'instance' => array(
         'ding_entity_type' => 'bibdkManifestation',
-        'label' => t('Manifestation type'),
+        'label' => t('Linkme Permalink'),
         'bundle' => 'bibdkManifestation',
         'entity_type' => 'bibdkManifestation'
       ),

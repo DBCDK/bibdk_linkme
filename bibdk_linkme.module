@@ -1,8 +1,7 @@
 <?php 
 
 // Load Field module hooks.
-//module_load_include('inc', 'bibdk_linkme', 'bibdk_linkme.field');
-
+module_load_include('inc', 'bibdk_linkme', 'bibdk_linkme.field');
 
 /**
  * Implements hook_menu();
@@ -30,6 +29,7 @@ function bibdk_linkme_page (){
   //Old format
   if (isset($query['ccl'])){
     extract(_parseCCLQuery($query['ccl']));
+    // Query format "dkcclphrase.lid=$lid AND dkcclterm.ln=$lok"
     drupal_set_message(t("Get the Manifistation with lid : $lid and lok : $lok"), "status");
   }
   //new format
@@ -68,55 +68,3 @@ function bibdk_linkme_generate_permalink($id){
   return url("linkme.php", array("absolute" => TRUE, "query" => array("rec.id" => $id))); 
 }
 
-
-/**
- * Implements hook_field_info().
- */
-function bibdk_linkme_field_info() {
-  return array(
-    'bibdk_linkme_permalink' => array(
-      'label' => t('Permalink.'),
-      'description' => t('Linkme formatted permalink.'),
-      'default_widget' => 'hidden',
-      'default_formatter' => 'bibdk_linkme_permalink_default',
-      'no_ui' => TRUE,
-    ),
-  );
-}
-
-/**
- * Implements hook_field_load().
- */
-function bibdk_linkme_field_load($entity_type, $entities, $field, $instances, $langcode, &$items, $age) {
-  foreach ($entities as $id => $entity) {
-    $items[$id][] = array(
-      'link' => bibdk_linkme_generate_permalink($id),
-    );
-  }
-}
-
-
-/**
- * Implements hook_field_formatter_info().
- */
-function bibdk_linkme_field_formatter_info() {
-  return array(
-    'bibdk_linkme_permalink_default' => array(
-      'label' => t('Default'),
-      'field types' => array(
-        'bibdk_linkme_permalink',
-      ),
-    )
-  );
-}
-
-/**
- * Implements hook_field_formatter_view().
- */
-function bibdk_linkme_field_formatter_view($entity_type, $entity, $field, $instance, $langcode, $items, $display) {
-  $element = array();
-  foreach ($items as $delta => $item) {
-    $element[$delta]['#markup'] = l(t("get permalink"), $item['link']);
-  }
-  return $element;
-}
