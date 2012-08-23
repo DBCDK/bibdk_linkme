@@ -14,10 +14,47 @@ function bibdk_linkme_menu() {
     'access arguments' => array('access content'),
     'type' => MENU_LOCAL_TASK,
   );
-   
+  $items['admin/config/linkme'] = array(
+    'title' => 'Linkme',
+    'description' => 'Handle linkme module',
+    'position' => 'left',
+    'weight' => 1,
+    'page callback' => 'system_admin_menu_block_page',
+    'access arguments' => array('access administration pages'),
+    'file' => 'system.admin.inc',
+    'file path' => drupal_get_path('module', 'system'),
+  ); 
+  $items['admin/config/linkme/url'] = array(
+    'title' => 'Linkme Settings',
+    'description' => 'Set the base URL for linkme syntax',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('bibdk_linkme_admin'),
+    'access arguments' => array('administer bibdk_linkme settings'),
+    'type' => MENU_NORMAL_ITEM,
+   );
+
   return $items;
     
 }
+
+/**
+ * Administration form
+ */
+function bibdk_linkme_admin() {
+  $form = array();
+
+  $form['linkme_url'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Linkme base url'),
+    '#default_value' => variable_get('linkme_url', "http://bibliotek.dk/linkme"),
+    '#description' => t("e.g. http://bibliotek.dk/linkme"),
+    '#required' => TRUE,
+  );
+
+  return system_settings_form($form);
+}
+
+
 
 /**
  * Construct the linkme.php page
@@ -65,6 +102,6 @@ function _parseCCLQuery($ccl){
  */
 function bibdk_linkme_generate_permalink($id){
   
-  return url("linkme.php", array("absolute" => TRUE, "query" => array("rec.id" => $id))); 
+  return url(variable_get('linkme_url', "http://bibliotek.dk/linkme"), array("absolute" => TRUE, "query" => array("rec.id" => $id))); 
 }
 
