@@ -54,7 +54,17 @@ function bibdk_linkme_admin() {
   return system_settings_form($form);
 }
 
-
+/*
+ * Implementation of hook_theme
+ */
+function bibdk_linkme_theme(){
+  return array(
+    'bibdk_linkme_button' => array(
+      'variables' => array('link_text' => '', 'path' => '', 'query' => array(), 'link_attributes' => array()),
+      'template' => 'theme/bibdk_linkme_button',
+    ),
+  );
+}
 
 /**
  * Construct the linkme.php page

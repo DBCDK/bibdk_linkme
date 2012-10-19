@@ -46,7 +46,7 @@ function bibdk_linkme_field_formatter_info() {
 function bibdk_linkme_field_formatter_view($entity_type, $entity, $field, $instance, $langcode, $items, $display) {
   $element = array();
   foreach ($items as $delta => $item) {
-    $element[$delta]['#markup'] = l(t("get permalink"), $item['link']);
+    $element[$delta]['#markup'] = theme('bibdk_linkme_button', array('link_text' => t('Get permalink'), 'path' => $item['link'], 'query' => array(), 'link_attributes' => array()));    
   }
   return $element;
 }
