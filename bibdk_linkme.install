@@ -1,0 +1,42 @@
+<?php
+
+/**
+ * Implements hook_ding_entity_fields
+ **/
+function bibdk_linkme_ding_entity_fields() {
+  $display_full = array(
+          'reservation' => array(
+            'type' => 'hidden',
+          ),
+          'full' => array(
+            'type' => 'default',
+          ),
+        );
+  return array(
+    'bibdk_linkme_permalink' => array(
+      'field' => array(
+        'locked' => FALSE,
+        'storage' => array(
+          'type' => 'virtual_field',
+        ),
+      ),
+      'instance' => array(
+        'ding_entity_type' => 'bibdkManifestation',
+        'label' => t('Linkme Permalink'),
+        'bundle' => 'bibdkManifestation',
+        'entity_type' => 'bibdkManifestation',
+        'display' => $display_full,
+      ),
+    ),
+);
+
+  
+}
+
+function bibdk_linkme_update_7001() {
+  $fields = bibdk_linkme_ding_entity_fields();
+  foreach ($fields as $field_name => $field) {
+        field_delete_field($field_name);
+      }
+  ding_entity_modules_enabled(array('bibdk_linkme'));
+}
