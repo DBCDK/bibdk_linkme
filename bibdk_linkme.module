@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 // Load Field module hooks.
 module_load_include('inc', 'bibdk_linkme', 'bibdk_linkme.field');
@@ -23,7 +23,7 @@ function bibdk_linkme_menu() {
     'access arguments' => array('access administration pages'),
     'file' => 'system.admin.inc',
     'file path' => drupal_get_path('module', 'system'),
-  ); 
+  );
   $items['admin/config/linkme/url'] = array(
     'title' => 'Linkme Settings',
     'description' => 'Set the base URL for linkme syntax',
@@ -34,7 +34,7 @@ function bibdk_linkme_menu() {
    );
 
   return $items;
-    
+
 }
 
 /**
@@ -70,14 +70,14 @@ function bibdk_linkme_theme(){
  * Construct the linkme.php page
  */
 function bibdk_linkme_page (){
-  
+
   $query = drupal_get_query_parameters();
 
   //Old format
   if (isset($query['ccl'])){
     extract(_parseCCLQuery($query['ccl']));
     // Query format "dkcclphrase.lid=$lid AND dkcclterm.ln=$lok"
-    drupal_set_message(t("Get the Manifistation with lid : $lid and lok : $lok"), "status");
+    drupal_set_message(t('Get the Manifistation with lid : @lid and lok : @lok', array('@lid' => $lid, '@lok' => $lok), array('context' => 'bibdk_linkme')), 'status');
   }
   //new format
   else if (isset($query['rec_id'])){
@@ -85,15 +85,15 @@ function bibdk_linkme_page (){
   }
   //linkme query is missing
   else{
-    drupal_set_message(t("Query does not have the right format"), "error");
+    drupal_set_message(t('Query does not have the right format', array(), array('context' => 'bibdk_linkme')), "error");
   }
   return "";
 }
 
 /**
- * 
+ *
  * Extract lid and lok from CCL query
- * 
+ *
  * @param string $ccl
  * @return array containing the variables of the CCL query
  */
@@ -104,14 +104,14 @@ function _parseCCLQuery($ccl){
 }
 
 /**
- * 
+ *
  * Generate linkme permalink
- * 
+ *
  * @param string $id
- * @return string formatted as absolute URL 
+ * @return string formatted as absolute URL
  */
 function bibdk_linkme_generate_permalink($id){
-  
-  return url(variable_get('linkme_url', "http://bibliotek.dk/linkme"), array("absolute" => TRUE, "query" => array("rec.id" => $id))); 
+
+  return url(variable_get('linkme_url', "http://bibliotek.dk/linkme"), array("absolute" => TRUE, "query" => array("rec.id" => $id)));
 }
 
