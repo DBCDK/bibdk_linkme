@@ -45,8 +45,22 @@ function bibdk_linkme_field_formatter_info() {
  */
 function bibdk_linkme_field_formatter_view($entity_type, $entity, $field, $instance, $langcode, $items, $display) {
   $element = array();
+
   foreach ($items as $delta => $item) {
-    $element[$delta]['#markup'] = theme('bibdk_linkme_button', array('link_text' => t('Get permalink'), 'path' => $item['link'], 'query' => array(), 'link_attributes' => array()));    
+    $form = drupal_get_form('bibdk_linkme_button_form_element', $item['link']);
+    $element[$delta]['#markup'] = theme('bibdk_linkme_button', array('link_text' => t('Get permalink'), 'path' => $item['link'], 'query' => array(), 'link_attributes' => array(), 'link_form' => $form));
   }
   return $element;
+}
+
+function bibdk_linkme_button_form_element($form, &$form_state, $path){
+ $form = array();
+ $form['link'] = array(
+    '#type' => 'textfield',
+    '#default_value' => $path,
+   //'#disabled' => true,
+ );
+
+
+  return $form;
 }
