@@ -60,7 +60,7 @@ function bibdk_linkme_admin() {
 function bibdk_linkme_theme(){
   return array(
     'bibdk_linkme_button' => array(
-      'variables' => array('link_text' => '', 'path' => '', 'query' => array(), 'link_attributes' => array()),
+      'variables' => array('link_text' => '', 'path' => '', 'query' => array(), 'link_attributes' => array(), 'link_form' => array()),
       'template' => 'theme/bibdk_linkme_button',
     ),
   );
