@@ -4,8 +4,6 @@ core = 7.x
 version = 7.x-0.3
 package = Bibliotek.dk
 
-;dependencies[] = microcurl
-
-files[] = bibdk_linkme.field.inc
+files[] = bibdk_linkme.test
 
 configure = admin/config/linkme
