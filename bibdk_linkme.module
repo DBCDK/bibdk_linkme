@@ -116,6 +116,18 @@ function bibdk_linkme_ting_openformat_actions($type, $entity, $view_mode, $langc
   return $element;
 }
 
+function bibdk_linkme_button_form_element($form, &$form_state, $path){
+  $form = array();
+  $form['link'] = array(
+    '#type' => 'textfield',
+    '#default_value' => $path,
+    //'#disabled' => true,
+  );
+
+
+  return $form;
+}
+
 
 
 /**
