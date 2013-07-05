@@ -1,7 +1,7 @@
 name = Bibliotek.dk linkme permalink
 description = Adds a linkme permalink to ding entity
 core = 7.x
-version = 7.x-0.4
+version = 7.x-0.5
 package = Bibliotek.dk
 
 files[] = bibdk_linkme.test
