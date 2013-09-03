@@ -4,15 +4,15 @@ class BibdkLinkmeTestCase extends DrupalWebTestCase {
 
   public static function getInfo() {
     return array(
-      'name' => t('Bibdk Linkme test'),
+      'name' => t('Linkme test'),
       'description' => t('Test Linkme functionality'),
-      'group' => t('Bibliotek.dk - linkme'),
+      'group' => t('Bibliotek.dk - Linkme'),
     );
   }
 
   public function setUp() {
     parent::setUp('ting_openformat', 'devel');
-    variable_set('ting_search_url', 'lakiseks.dbc.dk/openbibdk/0.5/');
+    variable_set('ting_search_url', 'http://openbibdk.addi.dk/next/');
     variable_set('bibdk_provider_webservice_url', $this->getAbsoluteUrl('bibdk_webservice'));
     variable_set('bibdk_provider_security_code', 'securityCode');
     variable_set('search_active_modules', array('ting_openformat' => 'ting_openformat'));
