@@ -60,7 +60,7 @@ function bibdk_linkme_admin() {
 function bibdk_linkme_theme(){
   return array(
     'bibdk_linkme_button' => array(
-      'variables' => array('link_text' => '', 'path' => '', 'query' => array(), 'link_attributes' => array(), 'link_form' => array()),
+      'variables' => array('link_text' => '', 'path' => '', 'query' => array(), 'link_attributes' => array(), 'link_form' => array(), 'selid' => ''),
       'template' => 'theme/bibdk_linkme_button',
     ),
   );
@@ -109,10 +109,11 @@ function bibdk_linkme_ting_openformat_actions($type, $entity, $view_mode, $langc
       '#link_text' => t('Get permalink'),
       '#path' => $link,
       '#link_form' => $form,
-      '#weight' => 10
+      '#weight' => 10,
+      '#selid' => 'selid-linkme-' . drupal_html_id($entity->id),
     );
-
   }
+
   return $element;
 }
 
