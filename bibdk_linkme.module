@@ -46,8 +46,16 @@ function bibdk_linkme_admin() {
   $form['linkme_url'] = array(
     '#type' => 'textfield',
     '#title' => t('Linkme base url'),
-    '#default_value' => variable_get('linkme_url', "http://bibliotek.dk/linkme"),
+    '#default_value' => variable_get('linkme_url', "http://bibliotek.dk/linkme.php"),
     '#description' => t("e.g. http://bibliotek.dk/linkme"),
+    '#required' => TRUE,
+  );
+
+  $form['linkme_url_ccl'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Linkme base url for ccl formatted links'),
+    '#default_value' => variable_get('linkme_url', "http://old.bibliotek.dk/linkme.php"),
+    '#description' => t("e.g. http://old.bibliotek.dk/linkme.php"),
     '#required' => TRUE,
   );
 
@@ -75,6 +83,9 @@ function bibdk_linkme_page (){
 
   //Old format
   if (isset($query['ccl'])){
+    $url = variable_get('linkme_url_ccl', 'http://old.bibliotek.dk/linkme.php') . '?ccl=' . $query['ccl'];
+    drupal_goto($url);
+    // For now we redirect ccl queries t
     extract(_parseCCLQuery($query['ccl']));
     // Query format "dkcclphrase.lid=$lid AND dkcclterm.ln=$lok"
     drupal_set_message(t('Get the Manifistation with lid : @lid and lok : @lok', array('@lid' => $lid, '@lok' => $lok), array('context' => 'bibdk_linkme')), 'status');

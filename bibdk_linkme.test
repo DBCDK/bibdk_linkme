@@ -24,7 +24,7 @@ class BibdkLinkmeTestCase extends DrupalWebTestCase {
 
   public function testRunner(){
     $this->_testActionHook();
-
+    $this->_testUrlRedirect();
   }
 
   /**
@@ -42,5 +42,22 @@ class BibdkLinkmeTestCase extends DrupalWebTestCase {
     // confim reservation link is present
     $this->drupalGet('work/870970-basis:25294424');
     $this->assertLink(t('Get permalink'));
+  }
+
+  private function _testUrlRedirect(){
+    variable_set('linkme_url_ccl', 'old_linkme_url');
+
+    // Test non ccl query
+    $this->drupalGet('linkme.php', array('query' => array('rec.id' => '870970-basis:25294424')));
+    $this->assertUrl('work/870970-basis:25294424', array(), 'page is redirected to current linkme url');
+
+    // Test ccl query
+    $this->drupalGet('linkme.php', array('query' => array('ccl' => 'test_ccl')));
+    $this->assertEqual($this->getAbsoluteUrl('old_linkme_url%3Fccl%3Dtest_ccl'), $this->getUrl());
+
+    // Test invalid query
+    $this->drupalGet('linkme.php');
+    $this->assertText('Query does not have the right format');
+
   }
 }
