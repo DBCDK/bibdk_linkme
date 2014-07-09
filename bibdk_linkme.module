@@ -55,7 +55,7 @@ function bibdk_linkme_admin() {
   $form['linkme_url_ccl'] = array(
     '#type' => 'textfield',
     '#title' => t('Linkme base url for ccl formatted links'),
-    '#default_value' => variable_get('linkme_url', "http://old.bibliotek.dk/linkme.php"),
+    '#default_value' => variable_get('linkme_url_ccl', "http://old.bibliotek.dk/linkme.php"),
     '#description' => t("e.g. http://old.bibliotek.dk/linkme.php"),
     '#required' => TRUE,
   );
@@ -63,7 +63,7 @@ function bibdk_linkme_admin() {
   $form['linkme_url_ocn2pid'] = array(
     '#type' => 'textfield',
     '#title' => t('Linkme base url for OCN2PID webservice'),
-    '#default_value' => variable_get('linkme_url', "http://ocn2pid.addi.dk/ocn2pid/ocn-collection/"),
+    '#default_value' => variable_get('linkme_url_ocn2pid', "http://ocn2pid.addi.dk/ocn2pid/ocn-collection/"),
     '#description' => 
       t("e.g. http://ocn2pid.addi.dk/ocn2pid/ocn-collection/") .
       '<br/>' .
