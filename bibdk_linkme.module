@@ -159,7 +159,7 @@ function bibdk_linkme_page() {
   }
   //new format
   else if (isset($query['rec_id'])) {
-    drupal_goto("search/work/".$query['rec_id']);
+    drupal_goto("work/".$query['rec_id']);
   }
   // Linkme query is missing
   else{

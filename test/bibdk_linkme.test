@@ -56,7 +56,7 @@ class BibdkLinkmeTestCase extends DrupalWebTestCase {
 
     // Test non ccl query
     $this->drupalGet('linkme.php', array('query' => array('rec.id' => '870970-basis:25294424')));
-    $this->assertUrl('search/work/870970-basis:25294424', array(), 'page is redirected to current linkme url');
+    $this->assertUrl('work/870970-basis:25294424', array(), 'page is redirected to current linkme url');
 
     // Test ccl query
     $this->drupalGet('linkme.php', array('query' => array('ccl' => 'test_ccl')));
