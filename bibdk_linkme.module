@@ -64,7 +64,7 @@ function bibdk_linkme_admin() {
     '#type' => 'textfield',
     '#title' => t('Linkme base url for OCN2PID webservice'),
     '#default_value' => variable_get('linkme_url_ocn2pid', "http://ocn2pid.addi.dk/ocn2pid/ocn-collection/"),
-    '#description' => 
+    '#description' =>
       t("e.g. http://ocn2pid.addi.dk/ocn2pid/ocn-collection/") .
       '<br/>' .
       t('(REST URL. Redo as a standard webservice client once we have a SOAP webservice.)'),
@@ -109,7 +109,7 @@ function bibdk_linkme_page() {
         $url = $url . $ccl[1];
 
         $curl = new MicroCURL();
-        
+
         if ( $simpletest_prefix = drupal_valid_test_ua() ) {
           $curl->set_option(CURLOPT_USERAGENT, drupal_generate_test_ua($simpletest_prefix));
         }
@@ -131,8 +131,7 @@ function bibdk_linkme_page() {
           watchdog('bibdk_linkme', 'ocn2pid return empty set for ' . $url, array(), $severity = WATCHDOG_NOTICE);
         }
 
-        $op = t('BOOLEAN_OR', array(), array('langcode'=>'en-gb'));
-        $options['query']['search_block_form'] = implode(' ' . $op . ' ', $pids);
+        $options['query']['search_block_form'] = implode(' or ', $pids);
         $options['query']['ref'] = 'worldcat';
         $options['fragment'] = 'content';
         $options['language'] = $language;
@@ -152,7 +151,7 @@ function bibdk_linkme_page() {
     $url = variable_get('linkme_url_ccl', 'http://old.bibliotek.dk/linkme.php') . '?ccl=' . $ccl;
 
     drupal_goto($url);
-    // For now we redirect ccl queries t  
+    // For now we redirect ccl queries t
     extract(_parseCCLQuery($query['ccl']));
     // Query format "dkcclphrase.lid=$lid AND dkcclterm.ln=$lok"
     drupal_set_message(t('Get the Manifistation with lid : @lid and lok : @lok', array('@lid' => $lid, '@lok' => $lok), array('context' => 'bibdk_linkme')), 'status');
