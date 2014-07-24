@@ -156,7 +156,12 @@ function bibdk_linkme_page() {
     // Query format "dkcclphrase.lid=$lid AND dkcclterm.ln=$lok"
     drupal_set_message(t('Get the Manifistation with lid : @lid and lok : @lok', array('@lid' => $lid, '@lok' => $lok), array('context' => 'bibdk_linkme')), 'status');
   }
-  //new format
+  else if ( isset($query['cql'])) {
+    $options['query']['search_block_form'] = $query['cql'];
+    $options['fragment'] = 'content';
+    drupal_goto("search/work", $options);
+  }
+  //single ID
   else if (isset($query['rec_id'])) {
     drupal_goto("work/".$query['rec_id']);
   }
